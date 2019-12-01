@@ -12,3 +12,23 @@ pub fn do_the_thing(mut input: Vec<u32>) -> u32 {
     }
     return acc;
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_one() {
+        let result: u32 = do_the_thing(vec![100]);
+        assert_eq!(result, 39);
+    }
+    #[test]
+    fn test_multiple() {
+        let result: u32 = do_the_thing(vec![100, 50]);
+        assert_eq!(result, 55);
+    }
+    #[test]
+    fn test_small() {
+        let result: u32 = do_the_thing(vec![8]);
+        assert_eq!(result, 0);
+    }
+}

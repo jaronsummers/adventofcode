@@ -3,7 +3,7 @@ use std::io::{BufReader, BufRead};
 use std::fs::File;
 use std::env;
 
-//mod star1;
+mod star1;
 mod star2;
 
 pub fn read_input(filename: &str) -> Result<Vec<u32>, std::io::Error>{
