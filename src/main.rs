@@ -1,51 +1,106 @@
-use crate::star4::do_the_thing;
-use std::io::{BufReader, BufRead};
+use std::io::BufReader;
 use std::fs::File;
 use std::env;
 
-mod star1;
-mod star2;
-mod star3;
-mod star4;
+mod day1;
+mod day2;
+mod day3;
 mod computer;
 
+// TODO: consider using a session cookie to retrieve the configs and write them out if they aren't present
 
-pub fn read_input(filename: &str) -> Result<Vec<u32>, std::io::Error>{
-    // TODO: consider using a session cookie to retrieve the configs and write them out if they aren't present
-    // probably a better behavior would be to return an object that can be iterated over as needed
-    let mut data: Vec<u32> = Vec::new();
+pub fn get_reader_from_filename(filename: &str) -> BufReader<File> {
     let file = File::open(filename).unwrap();
     let reader = BufReader::new(file);
-    for (_index, line) in reader.lines().enumerate() {
-        let line = line.unwrap().parse::<u32>().unwrap();
-        data.push(line)
-    }
-    return Ok(data);
+    return reader;
 }
 
-pub fn read_comma_input(filename: &str) -> Result<Vec<u32>, std::io::Error>{
-    // TODO: consider using a session cookie to retrieve the configs and write them out if they aren't present
-    // probably a better behavior would be to return an object that can be iterated over as needed
-    // refactor so that input can be read in a more generalized way
-    let file = File::open(filename).unwrap();
-    let mut reader = BufReader::new(file);
-    let mut data = String::new();
-    reader.read_line(&mut data).expect("Unable to read line");
-    let vec: Vec<u32> = data.split(",").filter_map(|x| x.parse::<u32>().ok()).collect();
-    return Ok(vec);
+fn help() {
+    println!("Usage: adventofcode <year> <starnumber>, for example adventofcode 2019 3");
 }
 
 fn main() {
     // TODO: turn this into a CLI where I can type "adventofcode.exe 2019 star1" to get the answer to star1
-    // let args = env::args();
-    let cur = "star3.txt";
-
+    let args: Vec<String> = env::args().collect();
+    let input_file_name: &str;
     let base = env::current_dir().unwrap();
-    let config_path = base.join("inputs").join(&cur);
-    let inputs = match read_comma_input(config_path.to_str().unwrap()) {
-        Ok(inputs) => inputs,
-        Err(_) => std::process::exit(1)
-    };
-    let (result1, result2) = do_the_thing(inputs);
-    println!("{} + {}", result1, result2);
+    let year: i32;
+    let star: i32;
+    match args.len() {
+        3 => {
+            year = *match &args[1].parse::<i32>() {
+                Ok(year) => year,
+                Err(_) => std::process::exit(1)
+            };
+            star = *match &args[2].parse::<i32>() {
+                Ok(year) => year,
+                Err(_) => std::process::exit(1)
+            };
+        }
+        _ => {
+            help();
+            return;
+        }
+    }
+    // todo: parse input more carefully and raise errors
+    match year {
+        2019 => match star {
+            1 => {
+                use day1::{read_input, star1};
+                input_file_name = "day1.txt";
+                let config_path = base.join("inputs").join(&input_file_name);
+                let inputs = read_input(config_path.to_str().unwrap()).unwrap();
+                let result = star1(inputs);
+                println!("{}", result);
+            },
+            2 => {
+                use day1::{read_input, star2};
+                input_file_name = "day1.txt";
+                let config_path = base.join("inputs").join(&input_file_name);
+                let inputs = read_input(config_path.to_str().unwrap()).unwrap();
+                let result = star2(inputs);
+                println!("{}", result);
+            },
+            3 => {
+                    use day2::{read_input, star3};
+                    input_file_name = "day2.txt";
+                    let config_path = base.join("inputs").join(&input_file_name);
+                    let inputs = read_input(config_path.to_str().unwrap()).unwrap();
+                    let result = star3(inputs);
+                    println!("{}", result);
+            },
+            4 => {
+                use day2::{read_input, star4};
+                input_file_name = "day2.txt";
+                let config_path = base.join("inputs").join(&input_file_name);
+                let inputs = read_input(config_path.to_str().unwrap()).unwrap();
+                let result = star4(inputs);
+                println!("{}", result);
+            },
+            5 => {
+                use day3::{read_input, star5};
+                input_file_name = "day3.txt";
+                let config_path = base.join("inputs").join(&input_file_name);
+                let inputs = read_input(config_path.to_str().unwrap()).unwrap();
+                let result = star5(inputs);
+                println!("{}", result);
+            },
+            6 => {
+                use day3::{read_input, star6};
+                input_file_name = "day3.txt";
+                let config_path = base.join("inputs").join(&input_file_name);
+                let inputs = read_input(config_path.to_str().unwrap()).unwrap();
+                let result = star6(inputs);
+                println!("{}", result);
+            }
+            _ => {
+                help();
+                return;
+            }
+        }
+        _ => {
+            help();
+            return;
+        }
+    }
 }
