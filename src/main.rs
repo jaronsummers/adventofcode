@@ -5,6 +5,7 @@ use std::env;
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 mod computer;
 
 // TODO: consider using a session cookie to retrieve the configs and write them out if they aren't present
@@ -91,6 +92,18 @@ fn main() {
                 let config_path = base.join("inputs").join(&input_file_name);
                 let inputs = read_input(config_path.to_str().unwrap()).unwrap();
                 let result = star6(inputs);
+                println!("{}", result);
+            },
+            7 => {
+                use day4::{read_input, star7};
+                let inputs = read_input("271973-785961");
+                let result = star7(inputs);
+                println!("{}", result);
+            },
+            8 => {
+                use day4::{read_input, star8};
+                let inputs = read_input("271973-785961");
+                let result = star8(inputs);
                 println!("{}", result);
             }
             _ => {

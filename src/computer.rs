@@ -1,3 +1,4 @@
+// TODO: refactor this into a library
 pub fn computer(mut memory: Vec<u32>, input1: u32, input2: u32) -> u32 {
     //Setting the computer to the desired state
     memory[1] = input1;
