@@ -1,4 +1,3 @@
-use crate::get_reader_from_filename;
 use counter::Counter;
 
 pub fn read_input(input: &str) -> (u32, u32) {
@@ -11,8 +10,6 @@ pub fn star7(input: (u32, u32)) -> u32{
     for x in input.0..input.1 + 1 {
         let mut adjacency = false;
         let mut ascending = true;
-        let next: i32;
-        let mut tried = 0;
         let i = x.to_string().into_bytes();
         for c in 0..6 {
             if c != 5 {
@@ -36,8 +33,6 @@ pub fn star8(input: (u32, u32)) -> u32{
     for x in input.0..input.1 + 1 {
         let mut adjacency = false;
         let mut ascending = true;
-        let next: i32;
-        let mut tried = 0;
         let i = x.to_string().into_bytes();
         let char_counts = i.iter().collect::<Counter<_>>();
         for c in 0..6 {
