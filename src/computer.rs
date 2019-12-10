@@ -14,7 +14,6 @@ fn computer(mut memory: Vec<i32>, mut output: impl Write) -> i32 {
     let mut buff3: i32;
     let mut buff4: i32;
     while settings.2 != 99 as i32 {
-
         match settings.2 {
             1 => {
                 // ADD

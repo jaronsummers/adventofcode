@@ -9,6 +9,7 @@ mod day2;
 mod day3;
 mod day4;
 mod day5;
+mod day6;
 mod computer;
 // TODO: consider using a session cookie to retrieve the configs and write them out if they aren't present
 
@@ -124,6 +125,10 @@ fn main() {
                 let config_path = base.join("inputs").join(&input_file_name);
                 let memory = read_input(config_path.to_str().unwrap()).unwrap();
                 star10(memory);
+            },
+            11 => {
+                use day6::star11;
+                input_file_name = "day6.txt"
             }
             _ => {
                 help();
